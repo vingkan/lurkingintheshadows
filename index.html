@@ -18,9 +18,41 @@
 
 	<body>
 
+		<div class="time-slider">
+			<input type="time" value="07:00:00">
+			<input type="time" value="11:00:00">
+		</div>
+
+		<div class="time-slider">
+			<input type="time" value="14:00:00">
+			<input type="time" value="16:00:00">
+		</div>
 		
+		<div class="time-slider">
+			<input type="time" value="18:00:00">
+			<input type="time" value="20:00:00">
+		</div>
 
 		<script type="text/javascript">
+
+			function TimeLineFactory(startHour, endHour){
+				var html = '';
+				for(var t = startHour; t < endHour + 1; t++){
+					label = (t % 12) + ' ' + (t < 12 ? 'AM' : 'PM');
+					html += '<div class="hour-label">' + label + '</div>';
+				}
+				return html;
+			}
+
+			var ts = document.getElementsByClassName('time-slider');
+			for(var i = 0; i < ts.length; i++){
+				var host = ts[i];
+				var root = host.createShadowRoot();
+				var start = host.children[0].value;
+				var end = host.children[1].value;
+				root.innerHTML = TimeLineFactory(parseInt(start, 10), parseInt(end, 10));
+			}
+
 
 			console.log("LOADED MAIN");
 
